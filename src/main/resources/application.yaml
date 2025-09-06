@@ -1,0 +1,103 @@
+server:
+  port: 7000
+
+useSwagger: ${AUTH_USE_SWAGGER:true}
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    version: openapi_3_0
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    default-models-expand-depth: -1
+    oauth:
+      use-basic-authentication-with-access-code-grant: true
+
+spring:
+  application:
+    name: ${AUTH_SPRING_APPLICATION_NAME:authentication}
+
+  datasource:
+    url: ${AUTH_SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/metadata_db}
+    username: ${AUTH_SPRING_DATASOURCE_USERNAME:user}
+    password: ${AUTH_SPRING_DATASOURCE_PASSWORD:pass}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: ${AUTH_SPRING_JPA_DDL_AUTO:update}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 10000
+          batch_versioned_data: true
+        order_inserts: true
+    generate-ddl: true
+    open-in-view: false
+  data:
+    redis:
+      host: ${AUTH_SPRING_REDIS_HOST:localhost}
+      port: ${AUTH_SPRING_REDIS_PORT:6379}
+      database: ${AUTH_SPRING_REDIS_DATABASE:0}
+  cache:
+    type: redis
+
+keycloak:
+  auth-server-url: ${AUTH_KEYCLOAK_AUTH_SERVER_URL:http://localhost:8180}
+  auth-client-scope: ${AUTH_KEYCLOAK_AUTH_CLIENT_SCOPE:dev-client}
+  instance:
+    realm-id: momtaz
+    client-id: authentication
+    client-secret: MLHpzYOYgamgSnPb6QycUzUOeVyj87GZ
+    username: ${AUTH_KEYCLOAK_USERNAME:admin}
+    password: ${AUTH_KEYCLOAK_PASSWORD:admin}
+
+minio:
+  url: ${MINIO_URL:http://localhost:9000}
+  access-key: ${MINIO_AUTH_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_AUTH_SECRET_KEY:minioadmin}
+  expire-link-time: 3600
+  default-bucket-name: ${MINIO_AUTH_BUCKET_NAME:auth}
+  buckets:
+    id-photo:
+      bucket-name: id-photo
+    profile-photo:
+      bucket-name: profile-photo
+
+gateway:
+  address: ${GATEWAY_ADDRESS:http://localhost:8888}
+  cluster: ${GATEWAY_CLUSTER:gateway.uni.svc.cluster.local:7083}
+
+use-application-in-local: ${AUTH_USE_APPLICATION_IN_LOCAL:true}
+
+rate:
+  limit:
+    max_requests: 10000
+    time_window_minutes: 2
+    block_duration_minutes: 1
+    protected_paths:
+      - /api/v1/auth/login
+      - /api/v1/auth/login/otp/send
+      - /api/v1/auth/admin-login/send-otp
+
+
+
+
+system:
+  default:
+    uuid: 9cddb0cf-a77e-4055-909a-fc5ae680e9f9
+
+jwt-manager:
+  secret-key: rA0z2vJZpE2Hd6mQlYqGzK2G7Fh+P2rI4Ol7qZVjlOo=
+  expiration-time: 900000000
+
+second:
+  level:
+    hash:
+      secret:
+        key: 123456789
+grpc:
+  server:
+    port: 9091

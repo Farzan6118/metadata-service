@@ -1,0 +1,61 @@
+syntax = "proto3";
+package proto;
+
+option java_multiple_files = true;
+option java_package = "com.daneshjooyar.grpc";
+option java_outer_classname = "RegionProto";
+
+import "google/protobuf/timestamp.proto";
+
+service RegionService {
+  rpc getById (IdRegionRequest) returns (RegionResponse);
+  rpc getCountryByName (CountryNameRegionRequest) returns (RegionResponse);
+}
+
+message IdRegionRequest {
+  int32 id = 1 ;
+}
+
+message CountryNameRegionRequest {
+  string name = 1 ;
+}
+
+message RegionResponse {
+  int32 id = 1;
+  optional int32 region_id = 2;
+  optional RegionTypeEnum region_type = 3;
+  int32 record_status = 4;
+  optional string code = 5;
+  string name = 6;
+  optional string latitude = 7;
+  optional string longitude = 8;
+
+  int32 level_id = 9;
+
+  optional string ar_description = 10;
+  optional string ar_title = 11;
+
+  optional string created_by_user_name = 12;
+  optional google.protobuf.Timestamp created_date = 13;
+
+  optional string en_description = 14;
+  optional string en_title = 15;
+
+  optional string fa_description = 16;
+  optional string fa_title = 17;
+
+  optional string modified_by_user_name = 18;
+  optional google.protobuf.Timestamp modified_date = 19;
+
+  optional string country_code = 20;
+  optional string logo = 21;
+}
+
+
+enum RegionTypeEnum {
+  REGION_TYPE_NONE = 0;
+  REGION_TYPE_COUNTRY = 1;
+  REGION_TYPE_PROVINCE = 2;
+  REGION_TYPE_CITY = 3;
+  REGION_TYPE_DISTRICT = 4;
+}

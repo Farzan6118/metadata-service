@@ -1,0 +1,46 @@
+syntax = "proto3";
+package proto;
+
+option java_multiple_files = true;
+option java_package = "com.daneshjooyar.grpc";
+option java_outer_classname = "BranchProto";
+
+import "google/protobuf/timestamp.proto";
+
+service BranchService {
+  rpc getById (IdBranchRequest) returns (BranchResponseDto);
+}
+
+message IdBranchRequest {
+  int32 id = 1 ;
+}
+
+message BranchResponseDto {
+  int32 branchCode = 1;
+  string latitude = 2;
+  string longitude = 3;
+  string mainImage = 4;
+  optional string secondImage = 5;
+  string phoneNumber = 6;
+  optional int32 regionId = 7;
+  optional string logo = 8;
+  string zipCode = 9;
+  optional int32 students = 10;
+  optional string email = 11;
+  optional string score = 12;
+  string enAddress = 13;
+  optional string faAddress = 14;
+  optional string arAddress = 15;
+  bool isInternational = 16;
+  string enTitle = 17;
+  optional string enDescription = 18;
+  optional string faTitle = 19;
+  optional string faDescription = 20;
+  optional string arTitle = 21;
+  optional string arDescription = 22;
+  google.protobuf.Timestamp createdDate = 23;
+  optional google.protobuf.Timestamp modifiedDate = 24;
+  optional string createdByUserName = 25;
+  optional string modifiedByUserName = 26;
+  int32 recordStatus = 27;
+}

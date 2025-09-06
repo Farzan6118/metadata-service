@@ -1,0 +1,6 @@
+package com.nesstiff.reference.metadataservice.repository.jpa;
+
+import com.nesstiff.reference.metadataservice.entity.Currency;
+
+public interface CurrencyJpa extends BaseJpa<Currency, Integer> {
+}
