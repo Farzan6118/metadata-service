@@ -1,18 +1,6 @@
 server:
   port: 7000
 
-useSwagger: ${AUTH_USE_SWAGGER:true}
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-    version: openapi_3_0
-  swagger-ui:
-    path: /swagger-ui.html
-    enabled: true
-    default-models-expand-depth: -1
-    oauth:
-      use-basic-authentication-with-access-code-grant: true
-
 spring:
   application:
     name: ${AUTH_SPRING_APPLICATION_NAME:authentication}
@@ -27,28 +15,40 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: ${AUTH_SPRING_JPA_DDL_AUTO:update}
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          batch_size: 10000
-          batch_versioned_data: true
-        order_inserts: true
+      properties:
+        hibernate:
+          jdbc:
+            batch_size: 10000
+            batch_versioned_data: true
+          order_inserts: true
     generate-ddl: true
     open-in-view: false
+
   data:
     redis:
       host: ${AUTH_SPRING_REDIS_HOST:localhost}
       port: ${AUTH_SPRING_REDIS_PORT:6379}
       database: ${AUTH_SPRING_REDIS_DATABASE:0}
+
   cache:
     type: redis
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    version: openapi_3_0
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: ${AUTH_USE_SWAGGER:true}
+    default-models-expand-depth: -1
+    oauth:
+      use-basic-authentication-with-access-code-grant: true
+
 keycloak:
-  auth-server-url: ${AUTH_KEYCLOAK_AUTH_SERVER_URL:http://localhost:8180}
+  realm: myrealm
+  server-url: http://localhost:8080
   auth-client-scope: ${AUTH_KEYCLOAK_AUTH_CLIENT_SCOPE:dev-client}
   instance:
-    realm-id: momtaz
     client-id: authentication
     client-secret: MLHpzYOYgamgSnPb6QycUzUOeVyj87GZ
     username: ${AUTH_KEYCLOAK_USERNAME:admin}
@@ -82,12 +82,12 @@ rate:
       - /api/v1/auth/login/otp/send
       - /api/v1/auth/admin-login/send-otp
 
-
-
-
 system:
   default:
     uuid: 9cddb0cf-a77e-4055-909a-fc5ae680e9f9
+
+auth:
+
 
 jwt-manager:
   secret-key: rA0z2vJZpE2Hd6mQlYqGzK2G7Fh+P2rI4Ol7qZVjlOo=
@@ -96,8 +96,12 @@ jwt-manager:
 second:
   level:
     hash:
-      secret:
-        key: 123456789
+      secret-key: 123456789
+
+eureka:
+  client:
+    enabled: false
+
 grpc:
   server:
     port: 9091

@@ -9,14 +9,11 @@ import org.hibernate.annotations.Nationalized;
 @Getter
 @Setter
 @Entity
-public class Bank extends BaseEntity<Integer> {
+public class UnitOfMeasure extends BaseEntity<Integer> {
 
     @Nationalized
     @Column(nullable = false)
-    private String nativeName;
+    private String ScientificName;
 
-    @Column(nullable = false)
-    private String identifierNumber;
-
-    private String logoUrl;
+    private String logo;
 }

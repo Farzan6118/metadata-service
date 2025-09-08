@@ -1,4 +1,4 @@
-package com.nesstiff.reference.metadataservice.config;
+package com.nesstiff.reference.metadataservice.config.jwt;
 
 import org.springframework.stereotype.Component;
 

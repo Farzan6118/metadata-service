@@ -8,14 +8,13 @@ import java.util.Optional;
 @Getter
 @RequiredArgsConstructor
 public enum SeasonName {
-    SPRING(1, "بهار", 3),
-    SUMMER(2, "تابستان", 6),
-    AUTUMN(3, "پاییز", 9),
-    WINTER(4, "زمستان", 12);
+    SPRING(1, "spring"),
+    SUMMER(2, "summer"),
+    AUTUMN(3, "autumn"),
+    WINTER(4, "winter");
 
     private final Integer id;
     private final String persianName;
-    private final Integer startMonth;
 
     public static Optional<SeasonName> findById(int id) {
         for (SeasonName seasonName : SeasonName.values()) {

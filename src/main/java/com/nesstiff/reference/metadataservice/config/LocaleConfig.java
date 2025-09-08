@@ -19,13 +19,12 @@ public class LocaleConfig implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
         AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
         resolver.setDefaultLocale(Locale.ENGLISH);
-        resolver.
-                setSupportedLocales(List.of(Locale.ENGLISH,
-                        Locale.forLanguageTag("fa")
-                        , Locale.forLanguageTag("ar")));
+        resolver.setSupportedLocales(List.of(
+                Locale.ENGLISH,
+                Locale.forLanguageTag("fa")
+        ));
         return resolver;
     }
-
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
@@ -38,5 +37,4 @@ public class LocaleConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
-
 }
