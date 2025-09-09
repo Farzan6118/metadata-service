@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class Region extends BaseEntity<Long> {
+public class Region extends BaseEntity<Integer> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Region region;
